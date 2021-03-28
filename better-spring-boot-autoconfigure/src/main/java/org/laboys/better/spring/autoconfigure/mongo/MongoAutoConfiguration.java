@@ -2,7 +2,6 @@ package org.laboys.better.spring.autoconfigure.mongo;
 
 import com.mongodb.client.MongoClient;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -10,14 +9,16 @@ import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfigurat
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.core.convert.*;
 import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 
-@Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(MongoClient.class)
+@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(MongoProperties.class)
 @AutoConfigureBefore(MongoDataAutoConfiguration.class)
+@Import(SuperMongoDataAutoConfiguration.class)
 public class MongoAutoConfiguration {
 
     /**
@@ -31,8 +32,8 @@ public class MongoAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(MongoConverter.class)
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    @ConditionalOnBean({MongoDatabaseFactory.class, MongoMappingContext.class})
-    @ConditionalOnProperty(prefix = MongoProperties.PREFIX, name = "remove-class-mapper", havingValue = "true")
+    @ConditionalOnClass({MongoDatabaseFactory.class, MongoMappingContext.class})
+    @ConditionalOnProperty(prefix = MongoProperties.PREFIX, name = "remove-class-mapping", havingValue = "true")
     public MappingMongoConverter mappingMongoConverter(MongoDatabaseFactory factory, MongoMappingContext context,
                                                        MongoCustomConversions conversions) {
         DbRefResolver refResolver = new DefaultDbRefResolver(factory);

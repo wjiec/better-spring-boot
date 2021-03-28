@@ -5,6 +5,27 @@
     "type": "java.lang.Boolean",
     "defaultValue": "true"
   }, {
+    "name": "better.mongo.money-converter-support",
+    "description": "是否开启默认的Money类型转换支持.",
+    "type": "java.lang.Boolean",
+    "defaultValue": "true"
+  }, {
+    "name": "better.mongo.enum-converter-support",
+    "description": "是否开启枚举类型转换支持.",
+    "values": [
+      {
+        "value": "lower",
+        "description": "将枚举值转换为小写."
+      }, {
+        "value": "upper",
+        "description": "将枚举值转换为大写."
+      }, {
+        "value": "unsupported",
+        "description": "使用默认的枚举值转换."
+      }
+    ],
+    "defaultValue": "lower"
+  }, {
     "name": "better.validation.message.basename",
     "description": "逗号分隔的验证器资源文件名列表.",
     "defaultValue": ["validation/messages", "ValidationMessages"]
