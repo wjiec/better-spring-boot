@@ -1,0 +1,37 @@
+{
+  "properties": [{
+    "name": "better.mongo.remove-class-mapping",
+    "description": "是否移除默认的_class字段.",
+    "type": "java.lang.Boolean",
+    "defaultValue": "true"
+  }, {
+    "name": "better.validation.message.basename",
+    "description": "逗号分隔的验证器资源文件名列表.",
+    "defaultValue": ["validation/messages", "ValidationMessages"]
+  }, {
+    "name": "better.web.feature.accept-case-insensitive-enums",
+    "description": "是否接受不区分大小写的枚举值.",
+    "type": "java.lang.Boolean",
+    "defaultValue": "true"
+  }, {
+    "name": "better.web.feature.read-unknown-enum-using-default-value",
+    "description": "是否使用默认值替代未知的枚举值.",
+    "type": "java.lang.Boolean",
+    "defaultValue": "true"
+  }, {
+    "name": "barley.web.decoration.enabled",
+    "description": "是否开启接口装饰.",
+    "type": "java.lang.Boolean",
+    "defaultValue": "true"
+  }, {
+    "name": "barley.web.decoration.on-success",
+    "description": "是否在成功时进行接口装饰.",
+    "type": "java.lang.Boolean",
+    "defaultValue": "true"
+  }, {
+    "name": "barley.web.decoration.on-failure",
+    "description": "是否在异常时进行接口装饰.",
+    "type": "java.lang.Boolean",
+    "defaultValue": "true"
+  }]
+}
