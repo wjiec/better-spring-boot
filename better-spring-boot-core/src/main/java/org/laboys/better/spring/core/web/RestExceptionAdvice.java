@@ -5,6 +5,8 @@ import org.laboys.better.spring.core.annotation.web.RestExceptionHandler;
 import org.laboys.better.spring.core.web.decoration.DecorationResult;
 import org.laboys.better.spring.core.web.decoration.StatusCode;
 import org.laboys.better.spring.core.web.handler.Handler;
+import org.laboys.better.spring.core.web.metadata.Metadata;
+import org.laboys.better.spring.core.web.metadata.MetadataAdviceSupport;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestControllerAdvice
-public final class RestExceptionAdvice {
+public final class RestExceptionAdvice extends MetadataAdviceSupport {
 
     /**
      * 带有特殊处理方式的异常处理器
@@ -31,7 +33,8 @@ public final class RestExceptionAdvice {
     private static final Handler<Throwable> defaultExceptionHandler = new DefaultExceptionHandler();
 
     @SuppressWarnings("unchecked")
-    public RestExceptionAdvice(ApplicationContext context) {
+    public RestExceptionAdvice(ApplicationContext context, List<Metadata> metadata) {
+        super(metadata);
         for (var handle : context.getBeansWithAnnotation(RestExceptionHandler.class).values()) {
             if (handle instanceof Handler) {
                 RestExceptionHandler annotation = handle.getClass().getAnnotation(RestExceptionHandler.class);
@@ -63,7 +66,7 @@ public final class RestExceptionAdvice {
         }
 
         return ResponseEntity.status(httpStatus)
-            .body(DecorationResult.error(statusCode, handler.errors(ex), new HashMap<>()));
+            .body(DecorationResult.error(statusCode, handler.errors(ex), buildExtra()));
     }
 
     @RestExceptionHandler(value = Throwable.class, statusCode = StatusCode.INTERNAL_ERROR)

@@ -36,5 +36,9 @@ class WebExceptionAutoConfiguration {
         return new ValidationBindErrorHandler();
     }
 
+    @Bean
+    public HttpMessageNotReadableExceptionHandler httpMessageNotReadableExceptionHandler() {
+        return new HttpMessageNotReadableExceptionHandler();
+    }
 
 }

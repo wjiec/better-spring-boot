@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -46,6 +47,29 @@ public class ListResult<T> implements Serializable {
          */
         @ApiModelProperty("是否还有下一页")
         private boolean more;
+    }
+
+    /**
+     * 构造数据
+     */
+    public static <T> ListResult<T> of(List<T> data, int count, boolean more) {
+        return ListResult.<T>builder()
+            .result(data)
+            .page(Pagination.builder()
+                .count(count)
+                .more(more)
+                .build())
+            .build();
+    }
+
+    /**
+     * 占位使用的构造方法
+     */
+    public static <T> ListResult<T> TODO() {
+        return ListResult.<T>builder()
+            .result(Collections.emptyList())
+            .page(Pagination.builder().build())
+            .build();
     }
 
 }

@@ -2,6 +2,8 @@ package org.laboys.better.spring.core.web;
 
 import org.laboys.better.spring.core.annotation.web.UndecoratedApi;
 import org.laboys.better.spring.core.web.decoration.DecorationResult;
+import org.laboys.better.spring.core.web.metadata.Metadata;
+import org.laboys.better.spring.core.web.metadata.MetadataAdviceSupport;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.MethodParameter;
@@ -15,18 +17,18 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.List;
 
 @RestControllerAdvice
-public class RestResultAdvice implements ResponseBodyAdvice<Object> {
+public class RestResultAdvice extends MetadataAdviceSupport implements ResponseBodyAdvice<Object> {
 
     /**
      * 主程序所在的命名空间
      */
     private final List<String> packages;
 
-    public RestResultAdvice(ApplicationContext context) {
+    public RestResultAdvice(ApplicationContext context, List<Metadata> metadata) {
+        super((metadata));
         packages = AutoConfigurationPackages.get(context.getAutowireCapableBeanFactory());
     }
 
@@ -60,10 +62,10 @@ public class RestResultAdvice implements ResponseBodyAdvice<Object> {
         }
 
         if (!(rawBody instanceof DecorationResult)) {
-            return DecorationResult.success(rawBody, new HashMap<>());
+            return DecorationResult.success(rawBody, buildExtra());
         }
 
-        ((DecorationResult<?>) rawBody).mergeExtra(new HashMap<>());
+        ((DecorationResult<?>) rawBody).mergeExtra(buildExtra());
         return rawBody;
     }
 
