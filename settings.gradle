@@ -1,0 +1,12 @@
+/**
+ * better-spring-boot
+ *
+ * @copyright (C) 2021 Jayson
+ */
+
+rootProject.name = 'better-spring-boot'
+include 'better-spring-boot-starter'
+include 'better-spring-boot-starter-demo'
+include 'better-spring-boot-autoconfigure'
+include 'better-spring-boot-core'
+
