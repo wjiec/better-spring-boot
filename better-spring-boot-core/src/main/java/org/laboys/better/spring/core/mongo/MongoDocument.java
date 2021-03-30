@@ -1,5 +1,6 @@
 package org.laboys.better.spring.core.mongo;
 
+import com.querydsl.core.annotations.QuerySupertype;
 import lombok.Data;
 import nonapi.io.github.classgraph.json.Id;
 import org.springframework.data.annotation.CreatedDate;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
+@QuerySupertype
 public abstract class MongoDocument implements Serializable {
     private static final long serialVersionUID = 1495384929060001022L;
 

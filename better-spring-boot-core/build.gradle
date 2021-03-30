@@ -4,6 +4,9 @@ plugins {
 }
 
 dependencies {
+    annotationProcessor group: 'com.querydsl', name: 'querydsl-apt', version: "${queryDslVersion}", classifier: 'general'
+    annotationProcessor group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb'
+
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter'
     implementation group: 'com.google.guava', name: 'guava', version: '30.1-jre'
 
@@ -15,4 +18,5 @@ dependencies {
     compileOnly group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb'
 
     compileOnly group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+    compileOnly group: 'com.querydsl', name: 'querydsl-core', version: "${queryDslVersion}"
 }
